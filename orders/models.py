@@ -9,3 +9,15 @@ class Coupon(models.Model):
     valid_until = models.DateField() #end date
     def __str__(self):
         return self.code
+
+
+class OrderStatus(models.Model):
+    # Status name (unique hona chahiye)
+    name = models.CharField(max_length=50, unique=True)
+    #Example statuses
+    PENDING = "Pending"
+    PROCESSING = "Processing"
+    COMPLETED = "Completed"
+    CANCELLED = "Cancelled"
+    def __str__(self):
+        return self.name
