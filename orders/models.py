@@ -21,3 +21,11 @@ class OrderStatus(models.Model):
     CANCELLED = "Cancelled"
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    # Example fields
+    customer_name = models.CharField(max_length=100)
+    # Status connect karna (IMPORTANT PART)
+    status = models.ForeignKey(OrderStatus, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return self.customer_name
