@@ -8,3 +8,14 @@ class Item(models.Model):
 
     def __str__(self):
         return str(self.item_name)
+
+class Restaurant(models.Model):
+    name = CharField(max_length= 100)
+    address = models.TextField()
+    has_delivery = models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
+
+    # Now run the command
+    # py manage.py makemigrations
+    # py manage.py migrate
