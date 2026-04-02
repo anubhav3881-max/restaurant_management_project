@@ -19,3 +19,5 @@ class Restaurant(models.Model):
     # Now run the command
     # py manage.py makemigrations
     # py manage.py migrate
+
+    
