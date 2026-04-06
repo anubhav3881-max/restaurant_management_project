@@ -23,7 +23,7 @@ def generate_coupon_code(length=10):
         # return code
         return code # (agar abhi DB check nahi hai to simple return kar do)
 
-def get_daily_dales_total(date):
+def get_daily_sales_total(date):
     orders = Order.objects.filter(created_at__date=date)
     total = orders.aggregate(total_sum=Sum('total_price'))['total_sum']
     return total if total else 0
