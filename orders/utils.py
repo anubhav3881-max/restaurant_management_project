@@ -1,5 +1,6 @@
 from datetime import datetime
-from .models import DailyOperatingHours
+from .models import DailyOperatingHours, Order
+from django.db.models import Sum
 import random
 import string
 
@@ -21,3 +22,8 @@ def generate_coupon_code(length=10):
         # if not Coupon.objects.filter(code=code).exists():
         # return code
         return code # (agar abhi DB check nahi hai to simple return kar do)
+
+def get_daily_dales_total(date):
+    orders = Order.objects.filter(created_at__date=date)
+    total = orders.aggregate(total_sum=Sum('total_price'))['total_sum']
+    return total if total else 0
