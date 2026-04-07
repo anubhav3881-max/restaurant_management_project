@@ -8,7 +8,7 @@ class MenuCategory(models.Model):
     name = models.CharField(max_length=100, unque=True)
 
 class DailySpecial(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Category Name")
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     
