@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework import generics
 from .models import Item
 from .serializers import ItemSerializer
+from rest_framework.viewsets import ModelViewSet
 
 '''
 NOTE: Conside this as a reference and follow this same coding structure or format to work on you tasks
@@ -28,3 +29,13 @@ class ItemView(APIView):
 class FeaturedItemView(generics.ListAPIView):
     queryset = Item.objects.filter(is_featured=True)
     serializer_class = ItemSerializer
+
+class ItemViewSet(ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search = self.request.query_params.get('search')
+        if search:
+            queryset = queryset.filter(item_name__icontains=search)
+        return queryset
