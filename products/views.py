@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
-from .models import Item, MenuItem
+from .models import Item
 from .serializers import ItemSerializer, IngredientSerializer
 from rest_framework.viewsets import ModelViewSet
 
@@ -40,9 +40,9 @@ class ItemViewSet(ModelViewSet):
             queryset = queryset.filter(item_name__icontains=search)
         return queryset
 
-class MenuItemIngredientsView(APIView):
+class ItemIngredientsView(APIView):
     def get(self, request, pk):
-        menu_item = MenuItem.objects.get(pk=pk)
-        ingredients = menu_item.ingredients.all()
+        item = Item.objects.get(pk=pk)
+        ingredients = item.ingredients.all()
         serializer = IngredientSerializer(ingredients, many=True)
         return Response(serializer.data)
