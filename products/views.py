@@ -62,3 +62,13 @@ class MenuItemViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response({"error":str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class MenuItemsByCategory(APIView):
+    def get(self, request):
+        category = request.GET.get('category')
+        if category:
+            items = MenuItems.objects.filter(category__category_name=category)
+        else:
+            items = MenuItems.objects.all()
+        serializer = MenuItemsSerializer(items, many=True)
+        return Response(serializer.data)
